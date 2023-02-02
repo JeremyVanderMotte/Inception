@@ -7,7 +7,7 @@ RUN apt-get update && \
 	php \
 	php-fpm
 
-COPY ./conf/www.conf php/7.4/fpm/pool.d
+# COPY ./conf/www.conf php/7.4/fpm/pool.d
 
 RUN mkdir -p /run/php/
 
@@ -26,6 +26,6 @@ WORKDIR /var/www/html/
 
 EXPOSE 9000
 
-CMD ["/usr/sbin/php-fpm7.4", "-F"]
+CMD ["/usr/sbin/php-fpm7.3", "-F"]
 
 

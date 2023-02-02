@@ -9,6 +9,7 @@ else
 	tar xfz latest.tar.gz
 	mv wordpress/* .
 	rm -rf latest.tar.gz
+	rm -rf wordpress/
 
 	sed -i "s/database_name_here/$DBAME/g" wp-config-sample.php
 	sed -i "s/username_here/$DBUSER/g" wp-config-sample.php
@@ -17,5 +18,5 @@ else
 
 	cp wp-config-sample.php wp-config.php
 
-	sed -i "s/listen =/0.0.0.0:9000/g" /etc/php/7.4/fpm/pool.d/www.conf
+	sed -i "s/listen =/0.0.0.0:9000/g" /etc/php/7.3/fpm/pool.d/www.conf
 fi
