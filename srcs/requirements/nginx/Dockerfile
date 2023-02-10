@@ -16,9 +16,10 @@ RUN openssl req -x509 -nodes \
 	-keyout /etc/nginx/ssl/self-signed-key.key \
 	-subj "/C=BE/ST=Bruxelles/L=Bruxelles/O=42/OU=19/CN=jvander"
 
-RUN mkdir -p /var/run/nginx/
-
+RUN mkdir -p /run/nginx/
 COPY conf/nginx.conf /etc/nginx/conf.d/default.conf
+
+WORKDIR /var/www/html/
 
 EXPOSE 443
 

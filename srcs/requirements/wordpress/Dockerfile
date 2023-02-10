@@ -12,18 +12,18 @@ RUN apt-get update && \
 
 RUN mkdir -p /run/php/
 
-
 #WORDPRESS CLI
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
 	chmod +x wp-cli.phar && \
 	mv wp-cli.phar /usr/local/bin/wp
+
+WORKDIR /var/www/html/
 
 #Install wordpress
 COPY ./tools/wordpress_install.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/wordpress_install.sh
 ENTRYPOINT ["/usr/local/bin/wordpress_install.sh"]
 
-WORKDIR /var/www/html/
 
 EXPOSE 9000
 
