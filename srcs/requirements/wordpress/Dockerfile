@@ -6,7 +6,8 @@ RUN apt-get update && \
 	wget \
 	bash \
 	php7.3 \
-	php7.3-fpm
+	php7.3-fpm \
+	php7.3-mysql
 
 # COPY ./conf/www.conf php/7.4/fpm/pool.d
 
@@ -17,7 +18,7 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 	chmod +x wp-cli.phar && \
 	mv wp-cli.phar /usr/local/bin/wp
 
-WORKDIR /var/www/html/
+WORKDIR /var/www/wordpress/
 
 #Install wordpress
 COPY ./tools/wordpress_install.sh /usr/local/bin
