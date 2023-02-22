@@ -18,7 +18,7 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 	chmod +x wp-cli.phar && \
 	mv wp-cli.phar /usr/local/bin/wp
 
-WORKDIR /var/www/wordpress/
+WORKDIR /var/www/html/
 
 #Install wordpress
 COPY ./tools/wordpress_install.sh /usr/local/bin

@@ -8,23 +8,26 @@ services:
       - "443:443"
     restart: "always"
     volumes:
-      - wordpress_data:/var/www/wordpress
+      - wordpress_data:/var/www/html
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb/
+    env_file:
+      - .env
+    ports:
+      - "3306:3306"
+    networks:
+      - inception
+    restart: always
   wordpress:
     container_name: wordpress
     build: ./requirements/wordpress/
     restart: "always"
-    #env_file: ./.env
+    env_file: ./.env
     volumes:
-      - wordpress_data:/var/www/wordpress
-  mysql:
-    image: mysql:latest
-    environment:
-      MYSQL_DATABASE: wp
-      MYSQL_USER: wp
-      MYSQL_PASSWORD: 1234
-      MYSQL_ROOT_PASSWORD: 1234
-    volumes:
-       - wordpress_data:/var/www/wordpress
+      - wordpress_data:/var/www/html
+    depends_on:
+      - mariadb
 networks:
   inception:
     driver: bridge
@@ -34,5 +37,5 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/jvander-/data/wordpress
+      device: /home/jvander/data/wordpress
       o: bind
