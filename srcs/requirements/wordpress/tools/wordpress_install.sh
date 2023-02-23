@@ -24,7 +24,7 @@
 	${MARIADB_USER_EMAIL} \
 	--user_pass=${MARIADB_PWD};
 
-	#wp theme install twentysixsten --activate
+	wp theme install hestia --activate --allow-root
 	
 	#wget http://wordpress.org/latest.tar.gz
 	#tar xfz latest.tar.gz
