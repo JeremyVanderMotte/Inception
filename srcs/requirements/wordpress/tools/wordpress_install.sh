@@ -7,8 +7,8 @@
 	wp core download --allow-root --path=/var/www/html/
 
 	sed -i "s/database_name_here/$MARIADB_NAME/g" wp-config-sample.php
-	sed -i "s/username_here/$MARIADB_USER/g" wp-config-sample.php
-	sed -i "s/password_here/$MARIADB_PWD/g" wp-config-sample.php
+	sed -i "s/username_here/$WP_ROOT_USER/g" wp-config-sample.php
+	sed -i "s/password_here/$WP_ROOT_PWD/g" wp-config-sample.php
 	sed -i "s/localhost/$MARIADB_HOST/g" wp-config-sample.php
 	sed -i "s/define( 'WP_DEBUG', false );/define( 'WP_DEBUG', true );/g" wp-config-sample.php
 	mv wp-config-sample.php wp-config.php
@@ -35,9 +35,9 @@
 	#Command to create a new user in wordpress
 	wp user create \
 	--allow-root \
-	${WP_USER} \
-	${WP_USER_EMAIL} \
-	--user_pass=${WP_PWD};
+	$WP_USER \
+	$WP_USER_EMAIL \
+	--user_pass=$WP_USER_PASSWORD
 
 	#Install a new theme prettier of the default one.
 	wp theme install hestia --activate --allow-root
