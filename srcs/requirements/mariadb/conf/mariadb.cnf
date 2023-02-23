@@ -1,3 +1,4 @@
-[galera] 
-bind-address=0.0.0.0
-port=3306 
+[mysqld]
+user = root
+port = 3306
+bind-address = 0.0.0.0

@@ -7,7 +7,8 @@ RUN apt-get update && \
 	bash \
 	php7.3 \
 	php7.3-fpm \
-	php7.3-mysql
+	php7.3-mysql \
+	mariadb-server
 
 # COPY ./conf/www.conf php/7.4/fpm/pool.d
 

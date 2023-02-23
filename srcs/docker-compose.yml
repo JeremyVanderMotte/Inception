@@ -9,6 +9,8 @@ services:
     restart: "always"
     volumes:
       - wordpress_data:/var/www/html
+    networks:
+      - inception
   mariadb:
     container_name: mariadb
     build: ./requirements/mariadb/
@@ -19,6 +21,8 @@ services:
     networks:
       - inception
     restart: always
+    volumes:
+      - mariadb_data:/var/lib/mysql
   wordpress:
     container_name: wordpress
     build: ./requirements/wordpress/
@@ -28,6 +32,8 @@ services:
       - wordpress_data:/var/www/html
     depends_on:
       - mariadb
+    networks:
+      - inception
 networks:
   inception:
     driver: bridge
@@ -38,4 +44,10 @@ volumes:
     driver_opts:
       type: none
       device: /home/jvander/data/wordpress
+      o: bind
+  mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/jvander/data/mariadb
       o: bind
