@@ -7,9 +7,6 @@ RUN	apt-get update && \
 RUN mkdir -p /etc/nginx/ssl/
 
 # x509 : self sign the certificate
-# rsa:4096 : construct RSA keys
-# sha256 : Type of encryption
-# days 365 : valid for one year
 # subj : Use to give default values for creating key
 RUN openssl req -x509 -nodes \
 	-out /etc/nginx/ssl/self-signed-cert.crt \
