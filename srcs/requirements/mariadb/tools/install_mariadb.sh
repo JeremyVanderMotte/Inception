@@ -20,7 +20,7 @@ if [ ! -d /var/lib/mysql/$MARIADB_NAME ]; then
 
 	#Il faut protéger le root de mysql car on veut que l'user créer précédemment ait accès 
 	#à la database créé mais pas à toutes les databases.
-	mysqladmin -u root password $MARIADB_ROOT_PWD;
+	mysqladmin -u root password $WP_ROOT_PWD;
 
 	#Je sais pas Pourquoi on arrête le service donc à voir ou à essayer //TO DO
 	service mysql stop --datadir=/var/lib/mysql

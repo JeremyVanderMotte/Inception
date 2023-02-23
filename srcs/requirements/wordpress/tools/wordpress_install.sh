@@ -7,21 +7,22 @@
 	wp core install \
 		--title=$WP_TITLE \
 		--url=$WP_URL \
-		--admin_user=$MARIADB_ROOT_USER \
-		--admin_password=$MARIADB_ROOT_PWD \
-		--admin_email=$MARIADB_ROOT_EMAIL \
+		--admin_user=$WP_ROOT_USER \
+		--admin_password=$WP_ROOT_PWD \
+		--admin_email=$WP_ROOT_EMAIL \
 		--allow-root
 
 	wp config create \
 		--dbname=$MARIADB_NAME\
-		--dbuser=$MARIADB_ROOT_USER \
-		--dbpass=$MARIADB_ROOT_PWD \
+		--dbuser=$WP_ROOT_USER \
+		--dbpass=$WP_ROOT_PWD \
+		--dbhost=$MARIADB_HOST \
 		--allow-root
 	
 	wp user create \
 	--allow-root \
 	${MARIADB_USER} \
-	${MARIADB_USER_EMAIL} \
+	${WP_USER_EMAIL} \
 	--user_pass=${MARIADB_PWD};
 
 	wp theme install hestia --activate --allow-root
