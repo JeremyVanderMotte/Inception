@@ -3,11 +3,12 @@ FROM debian:buster
 RUN apt-get update && \
 	apt-get install -y \
 	curl \
-	php7.3 \
+	#php7.3 \
 	php7.3-fpm \
 	php7.3-mysql
 
 RUN mkdir -p /run/php/
+
 
 #Download wordpress CLI to install wordpress
 # and skip the config page.
