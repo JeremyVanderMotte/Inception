@@ -3,6 +3,10 @@
 	#Change the listen part for php to listen to wordpress
 	sed -i "s|listen = /run/php/php7.3-fpm.sock|listen = 9000|g" /etc/php/7.3/fpm/pool.d/www.conf
 
+if [ -f ./wp-config.php ]
+then
+	echo "Wordpress is already installed and configured"
+else
 	#Downloading wordpress in path specified
 	wp core download --allow-root --path=/var/www/html/
 
@@ -41,5 +45,5 @@
 
 	#Install a new theme prettier of the default one.
 	wp theme install hestia --activate --allow-root
-
+fi
 exec "$@"

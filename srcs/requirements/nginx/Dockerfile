@@ -16,7 +16,7 @@ RUN openssl req -x509 -nodes \
 RUN mkdir -p /run/nginx/
 COPY conf/nginx.conf /etc/nginx/conf.d/default.conf
 
-WORKDIR /var/www/wordpress/
+WORKDIR /var/www/html/
 
 EXPOSE 443
 

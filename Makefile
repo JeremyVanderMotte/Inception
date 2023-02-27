@@ -10,16 +10,9 @@ re:
 	@docker compose -f ./srcs/docker-compose.yml up -d --build
 
 clean:
-	sudo rm -rf /home/jvander/data
-	@docker rm $$(docker ps -qa); \
-	docker rmi -f $$(docker images -qa); \
-	docker volume rm $$(docker volume ls -q); \
-	docker network rm $$(docker network ls -q);
-
+	docker system prune --volumes -fa
 
 deep: down clean
-	sudo rm -rf ~/data/wordpress/* ;
-	sudo rm -rf ~/data/mariadb/* ;
-	docker system prune
+	sudo rm -rf ~/data
 
 .PHONY: all re down clean deep
