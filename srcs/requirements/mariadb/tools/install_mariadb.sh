@@ -4,11 +4,13 @@ chown -R mysql:mysql /var/lib/mysql
 #Si la DB existe déjà on ne la recrée aps  
 if [ ! -d /var/lib/mysql/$MARIADB_NAME ]; then
 
+	#Crétion du dossier pour lancer mysqld
+	mkdir -p /var/run/mysqld
+	touch /var/run/mysqld/mysqld.sock
+	chown mysql /var/run/mysqld/mysqld.sock
 	#On lance mysql dans le dossier défini par datadir pour le configurer
 	service mysql start --datadir=/var/lib/mysql
 
-	#Crétion du dossier pour lancer mysqld
-	mkdir -p /var/run/mysqld
 
 	#Une fois les dossiers requis créer on va aussi s'assurer que les documents requis sont
 	#présent. touch va créer un document vide par définition. 
@@ -17,11 +19,9 @@ if [ ! -d /var/lib/mysql/$MARIADB_NAME ]; then
 	#Lance le script pour créer la DB et un user root
 	eval "echo \"$(cat /tmp/create_database.sql)\"" | mariadb -u root
 
-	#Il faut protéger le root de mysql car on veut que l'user créer précédemment ait accès 
-	#à la database créé mais pas à toutes les databases.
-	#mysqladmin -u root password $WP_ROOT_PWD;
+	#Set un password pour l'utilisateur root
+	mysqladmin -u root password $WP_ROOT_PWD;
 
-	
 	service mysql stop --datadir=/var/lib/mysql
 else
 	#On crée un dossier qui va être utiliser par le daemon (le daemon stock toutes les infos

@@ -1,6 +1,6 @@
 all:
-	[ -d /home/jvander/data/wordpress/] || mkdir -p /home/jvander/data/wordpress/
-	[ -d /home/jvander/data/mariadb/] || mkdir -p /home/jvander/data/mariadb/
+	[ -d /home/jvander-/data/wordpress/] || mkdir -p /home/jvander-/data/wordpress/
+	[ -d /home/jvander-/data/mariadb/] || mkdir -p /home/jvander-/data/mariadb/
 	@docker compose -f ./srcs/docker-compose.yml up -d --build
 
 down:

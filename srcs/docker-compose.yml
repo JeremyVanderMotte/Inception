@@ -11,8 +11,6 @@ services:
       - wordpress_data:/var/www/html
     networks:
       - inception
-    depends_on:
-      - wordpress
   mariadb:
     container_name: mariadb
     build: ./requirements/mariadb/
@@ -46,11 +44,11 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/jvander/data/wordpress
+      device: /home/jvander-/data/wordpress
       o: bind
   mariadb_data:
     driver: local
     driver_opts:
       type: none
-      device: /home/jvander/data/mariadb
+      device: /home/jvander-/data/mariadb
       o: bind

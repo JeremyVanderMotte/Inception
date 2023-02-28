@@ -11,7 +11,7 @@ RUN mkdir -p /etc/nginx/ssl/
 RUN openssl req -x509 -nodes \
 	-out /etc/nginx/ssl/self-signed-cert.crt \
 	-keyout /etc/nginx/ssl/self-signed-key.key \
-	-subj "/C=BE/ST=Bruxelles/L=Bruxelles/O=42/OU=19/CN=jvander"
+	-subj "/C=BE/ST=Bruxelles/L=Bruxelles/O=42/OU=19/CN=jvander-"
 
 RUN mkdir -p /run/nginx/
 COPY conf/nginx.conf /etc/nginx/conf.d/default.conf
