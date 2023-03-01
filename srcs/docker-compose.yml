@@ -32,6 +32,7 @@ services:
       - wordpress_data:/var/www/html
     depends_on:
       - mariadb
+      - nginx
     networks:
       - inception
 

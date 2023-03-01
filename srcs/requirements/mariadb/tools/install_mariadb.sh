@@ -1,35 +1,19 @@
-#Change les droits du dossier et des sous dossier pour y avoir accès
-chown -R mysql:mysql /var/lib/mysql
-
-#Si la DB existe déjà on ne la recrée aps  
-if [ ! -d /var/lib/mysql/$MARIADB_NAME ]; then
-
-	#Crétion du dossier pour lancer mysqld
-	mkdir -p /var/run/mysqld
-	touch /var/run/mysqld/mysqld.sock
-	chown mysql /var/run/mysqld/mysqld.sock
+#Si la DB existe déjà on ne la recrée pas  
+if [ -d /var/lib/mysql/$MARIADB_NAME ]; then
+	echo "DB $MARIADB_NAME already created..."
+else
 	#On lance mysql dans le dossier défini par datadir pour le configurer
 	service mysql start --datadir=/var/lib/mysql
 
-
-	#Une fois les dossiers requis créer on va aussi s'assurer que les documents requis sont
-	#présent. touch va créer un document vide par définition. 
-	#touch /var/run/mysqld/mysqlf.pid
-
-	#Lance le script pour créer la DB et un user root
+	#Crée la base de donnée avec un user root
 	eval "echo \"$(cat /tmp/create_database.sql)\"" | mariadb -u root
 
 	#Set un password pour l'utilisateur root
 	mysqladmin -u root password $WP_ROOT_PWD;
 
+	#Stop le service mysql
 	service mysql stop --datadir=/var/lib/mysql
-else
-	#On crée un dossier qui va être utiliser par le daemon (le daemon stock toutes les infos
-	#qui vont communiqué ensemble entre les sewrvices dans un même dossier)
-	#mkdir -p /var/run/mysqld
-	echo "DB $MARIADB_NAME already created..."
 fi
 
-#chown -R mysql:mysql /var/run/mysqld
-#On lance mysql dans le dossier où on l'a installé avant.
+#Lance le service en mode safe.
 mysqld_safe --datadir=/var/lib/mysql

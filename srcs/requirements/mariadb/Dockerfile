@@ -4,15 +4,18 @@ RUN apt-get update && \
 	apt-get install -y \
 	mariadb-server
 
+#Crée le dossier requis pour faire tourner mysqld
+RUN mkdir -p /var/run/mysqld
+
+#RUN mkdir -p '/var/run/mysqld/mysqld.sock'
+#Copie la requete SQL dans les dossier du container.
 COPY ./tools/create_database.sql /tmp/create_database.sql
 
-#je vais devoir copie des trucs (COPY)
+#Copie le script dans les dossier du container
 COPY tools/install_mariadb.sh /tmp
  
-#copie le document de config pour remplacer celui normalement déjà présent 
+#Remplace le fichier de configuration de mariadb par le notre.
 COPY conf/mariadb.cnf /etc/mysql/
-#RUN rm /etc/mysql/mariadb.cnf
-#Je vais devoir finir par la cmd ENTRYPOINT pour lancer les scripts qui feront la configurations du service pendant que le service tourne. 
-ENTRYPOINT ["sh", "/tmp/install_mariadb.sh"]
 
-#CMD [ "mysqld", "--bind-address=0.0.0.0" ]
+#Lance le script pour installer mariadb
+ENTRYPOINT ["sh", "/tmp/install_mariadb.sh"]
